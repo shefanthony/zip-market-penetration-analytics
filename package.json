@@ -1,15 +1,19 @@
 {
-  "name": "zip_penetration",
+  "name": "zip-market-penetration-analytics",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Analytics dashboard for ZIP code market penetration analysis with US Census data integration",
+  "main": "server.js",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["analytics", "zip-code", "market-penetration", "census-data"],
+  "author": "Shef Team",
   "license": "ISC",
   "dependencies": {
     "axios": "^1.11.0",

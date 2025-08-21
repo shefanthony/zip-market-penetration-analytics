@@ -5,7 +5,7 @@ const fs = require('fs');
 const DataProcessor = require('./dataProcessor');
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 
 // Your Census API key
 const CENSUS_API_KEY = 'd0ab335e50692233570248b6ff3e01754cba4e4f';
