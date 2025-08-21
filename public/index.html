@@ -543,11 +543,11 @@
                 this.loadingMessage = null;
                 
                 this.loadingMessages = [
-                    "🔐 Authenticating access...",
-                    "📊 Loading ZIP code data...",
-                    "🗺️ Mapping area names...",
-                    "💰 Calculating market penetration...",
-                    "✨ Finalizing dashboard..."
+                    "Reading Joey's mind...",
+                    "Making headaches for Jonathan...",
+                    "Creating work for Stratos...",
+                    "Seasoning the database...",
+                    "Whisking up some tasks..."
                 ];
                 
                 this.initializeLogin();
@@ -583,7 +583,7 @@
                 this.loginFormContainer.classList.add('loading');
                 
                 for (let i = 0; i < this.loadingMessages.length; i++) {
-                    await this.showLoadingMessage(this.loadingMessages[i], 800);
+                    await this.showLoadingMessage(this.loadingMessages[i], 1000);
                 }
                 
                 sessionStorage.setItem('zipAnalyticsAuth', 'authenticated');
