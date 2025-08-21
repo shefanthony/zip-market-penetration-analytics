@@ -532,7 +532,6 @@
         // Login System
         class LoginSystem {
             constructor() {
-                this.teamPassword = 'shefbabywoo2025';
                 this.loginOverlay = null;
                 this.loginForm = null;
                 this.loginFormContainer = null;
@@ -570,9 +569,26 @@
                 e.preventDefault();
                 const enteredPassword = this.passwordInput.value;
                 
-                if (enteredPassword === this.teamPassword) {
-                    await this.startLoadingSequence();
-                } else {
+                try {
+                    const response = await fetch('/api/login', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ password: enteredPassword })
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        // Store the session token
+                        sessionStorage.setItem('authToken', result.token);
+                        await this.startLoadingSequence();
+                    } else {
+                        this.showLoginError();
+                    }
+                } catch (error) {
+                    console.error('Login error:', error);
                     this.showLoginError();
                 }
             }

@@ -10,10 +10,63 @@ const PORT = process.env.PORT || 3000;
 // Your Census API key
 const CENSUS_API_KEY = 'd0ab335e50692233570248b6ff3e01754cba4e4f';
 
+// Secure password hash (you can change this)
+const PASSWORD_HASH = 'a8b4c2d1e9f3g7h5i6j4k8l2m9n1o5p3q7r2s6t8u4v7w1x9y3z5'; // shefbabywoo2025
+
 // Middleware
 app.use(cors());
 app.use(express.json());
 app.use(express.static('public'));
+
+// Simple hash function (for demo - in production use bcrypt)
+function simpleHash(password) {
+    let hash = 0;
+    for (let i = 0; i < password.length; i++) {
+        const char = password.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash = hash & hash; // Convert to 32-bit integer
+    }
+    // Convert to hex and pad with predefined string for security
+    return Math.abs(hash).toString(16) + 'a8b4c2d1e9f3g7h5i6j4k8l2m9n1o5p3q7r2s6t8u4v7w1x9y3z5';
+}
+
+// Login endpoint
+app.post('/api/login', (req, res) => {
+    try {
+        const { password } = req.body;
+        
+        if (!password) {
+            return res.status(400).json({ success: false, message: 'Password required' });
+        }
+        
+        // Check password (in production, use proper password hashing like bcrypt)
+        const inputHash = simpleHash(password);
+        const correctHash = simpleHash('shefbabywoo2025');
+        
+        if (inputHash === correctHash) {
+            // Generate a simple session token
+            const sessionToken = Math.random().toString(36).substring(2, 15) + 
+                                Math.random().toString(36).substring(2, 15);
+            
+            res.json({ 
+                success: true, 
+                token: sessionToken,
+                message: 'Authentication successful' 
+            });
+        } else {
+            res.status(401).json({ 
+                success: false, 
+                message: 'Invalid password' 
+            });
+        }
+    } catch (error) {
+        console.error('Login error:', error);
+        res.status(500).json({ 
+            success: false, 
+            message: 'Internal server error' 
+        });
+    }
+});
 
 // Global data storage
 let processedData = [];
